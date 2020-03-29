@@ -14,7 +14,7 @@ method described in:
 *Biometrics*, 1387-1393.
 
 Diagnostic plots for the search process are provided.
-For feedback, suggestions and errors, please contact 
-*stefan-gehrig[at]t-online.de*
+
+For feedback, suggestions and errors, please contact *stefan-gehrig[at]t-online.de*.
 
 Support for one-tailed tests and other test statistics is intended for an updated version.
