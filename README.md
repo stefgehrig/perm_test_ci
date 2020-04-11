@@ -13,7 +13,7 @@ method described in:
 + Garthwaite, P. H. (1996). Confidence intervals from randomization tests.                          
 *Biometrics*, 1387-1393.
 
-Diagnostic plots for the search process are provided.
+Diagnostic plots for the search process are provided. An example is provided with the code.
 
 For feedback, suggestions and errors, please contact *stefan-gehrig[at]t-online.de*.
 
