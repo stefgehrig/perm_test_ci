@@ -58,10 +58,10 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
       # calcultate confidence intervals according to Garthwaite 1996
       # define parameters for search
       a <- (1-conf.level)/2
-      z <- -qnorm(a)
+      z <- qnorm(a, lower.tail = FALSE)
       k <- 2/(z * (2*pi)^(-1/2) * exp((-z^2)/2))
       m <- round(0.3*(2-a) / (a),0) 
-      n <- round(perms * 1.5,0) # number of iterations should be larger than number of permutations for testing
+      n <- round(perms * 1.5,0) # number of search iterations should be larger than number of permutations for testing
       
       # create shifted group mean such that means are equal
       shifted_mean <- emp.diff + mean(out[gro==gro2])
