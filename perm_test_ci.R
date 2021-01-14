@@ -4,10 +4,11 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
                          data = NULL,        # data frame containing the variables, either tibble data.frame (mandatory)
                          conf.int = TRUE,    # whether confidence intervals for the difference in means should be computed
                          conf.level = 0.95,  # desired level of confidence
-                         perms = 5000){      # number of permutations (>50 is mandatory)
+                         perms = 2000){      # number of permutations for testing (>50 is mandatory)
+                                             # search steps for confidence limits are perms * 1.5
   
   if(perms <= 50)   stop("Number of permutations must be larger than 50")
-  if(is.null(data)) stop("Please supply outcome and group vector in a data frame or tibble")
+  if(is.null(data)) stop("Please supply outcome and group vector in a data.frame or tibble")
 
   # remove rows with NA
   data <- as.data.frame(data)
@@ -102,7 +103,7 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
       }
       
       # save mean of of last 10 iterations and plot convergence diagnostic
-      result.lower<-round(mean(tail(L,10)),4)
+      result.lower < -round(mean(tail(L,10)),4)
       plot(L, type="l", ylab="Confidence limit", xlab = "Search step", 
            main = "Search diagnostics lower limit\n(line shows final value\n as mean of last 10 iterations)")
       abline(h = result.lower)
@@ -147,7 +148,7 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
 # 
 # df <- data.frame(
 #   treatment_arm   = c( rep("control", 250), rep("intervention", 250) ),
-#   outcome_measure = c( rnorm(250, 100, 10), rnorm (250, 105, 20) )
+#   outcome_measure = c( rnorm(250, 100, 10), rnorm (250, 102, 10) )
 # )
 # 
 # perm_test_ci(
@@ -156,5 +157,5 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
 #   data       = df,
 #   conf.int   = TRUE,
 #   conf.level = 0.95,
-#   perms      = 4000
+#   perms      = 2000
 # )
