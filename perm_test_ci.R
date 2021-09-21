@@ -103,7 +103,7 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
       }
       
       # save mean of of last 10 iterations and plot convergence diagnostic
-      result.lower < -round(mean(tail(L,10)),4)
+      result.lower <- round(mean(tail(L,10)),4)
       plot(L, type="l", ylab="Confidence limit", xlab = "Search step", 
            main = "Search diagnostics lower limit\n(line shows final value\n as mean of last 10 iterations)")
       abline(h = result.lower)
