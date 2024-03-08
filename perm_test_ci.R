@@ -1,13 +1,12 @@
-
 perm_test_ci <- function(outcome,            # name of numeric vector that encodes the outcome which is compared 
                          group,              # name of numeric, factor, or character vector that encodes the two groups
                          data = NULL,        # data frame containing the variables, either tibble data.frame (mandatory)
                          conf.int = TRUE,    # whether confidence intervals for the difference in means should be computed
                          conf.level = 0.95,  # desired level of confidence
-                         perms = 2000){      # number of permutations for testing (>50 is mandatory)
+                         perms = 5000){      # number of permutations for testing (>1000 is mandatory)
                                              # search steps for confidence limits are perms * 1.5
   
-  if(perms <= 50)   stop("Number of permutations must be larger than 50")
+  if(perms <= 1e3)  stop("Number of permutations must be larger than 1000")
   if(is.null(data)) stop("Please supply outcome and group vector in a data.frame or tibble")
 
   # remove rows with NA
@@ -62,7 +61,7 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
       z <- qnorm(a, lower.tail = FALSE)
       k <- 2/(z * (2*pi)^(-1/2) * exp((-z^2)/2))
       m <- round(0.3*(2-a) / (a),0) 
-      n <- round(perms * 1.5,0) # number of search iterations should be larger than number of permutations for testing
+      n <- round(perms * 2.5,0) # number of search iterations should be larger than number of permutations for testing
       
       # create shifted group mean such that means are equal
       shifted_mean <- emp.diff + mean(out[gro==gro2])
@@ -102,8 +101,8 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
           L[i+1] <- L[i] - c*(1-a)/(i+m-1)}
       }
       
-      # save mean of of last 10 iterations and plot convergence diagnostic
-      result.lower < -round(mean(tail(L,10)),4)
+      # save mean of of last 100 iterations and plot convergence diagnostic
+      result.lower <- round(mean(tail(L,1e2)),4)
       plot(L, type="l", ylab="Confidence limit", xlab = "Search step", 
            main = "Search diagnostics lower limit\n(line shows final value\n as mean of last 10 iterations)")
       abline(h = result.lower)
@@ -127,10 +126,10 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
           U[i+1] <- U[i] + c*(1-a)/(i+m-1)}
       }
       
-      # save mean of of last 10 iterations and plot convergence diagnostic
-      result.upper <- round(mean(tail(U,10)),4)
+      # save mean of of last 100 iterations and plot convergence diagnostic
+      result.upper <- round(mean(tail(U,1e2)),4)
       plot(U, type="l", ylab="Confidence limit", xlab = "Search step", 
-           main = "Search diagnostics upper limit\n(line shows final value\n as mean of last 10 iterations)")
+           main = "Search diagnostics upper limit\n(line shows final value\n as mean of last 100 iterations)")
       abline(h = result.upper)
       
       return(cat(paste("Observed mean difference (", gro1, " - ", gro2, ") = ", round(emp.diff,4), "\n",
@@ -141,9 +140,9 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
     }
 }
     
-    
-## Example
-
+#################
+#### Example ####
+#################
 # set.seed(0)
 # 
 # df <- data.frame(
@@ -157,5 +156,5 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
 #   data       = df,
 #   conf.int   = TRUE,
 #   conf.level = 0.95,
-#   perms      = 2000
+#   perms      = 1e4
 # )
