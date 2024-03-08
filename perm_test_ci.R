@@ -101,8 +101,13 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
           L[i+1] <- L[i] - c*(1-a)/(i+m-1)}
       }
       
+<<<<<<< HEAD
       # save mean of of last 100 iterations and plot convergence diagnostic
       result.lower <- round(mean(tail(L,1e2)),4)
+=======
+      # save mean of of last 10 iterations and plot convergence diagnostic
+      result.lower <- round(mean(tail(L,10)),4)
+>>>>>>> 05a1d0dc345dae53365aec8915e40cc1a64865e1
       plot(L, type="l", ylab="Confidence limit", xlab = "Search step", 
            main = "Search diagnostics lower limit\n(line shows final value\n as mean of last 10 iterations)")
       abline(h = result.lower)
