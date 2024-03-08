@@ -4,7 +4,7 @@ perm_test_ci <- function(outcome,            # name of numeric vector that encod
                          conf.int = TRUE,    # whether confidence intervals for the difference in means should be computed
                          conf.level = 0.95,  # desired level of confidence
                          perms = 5000){      # number of permutations for testing (>1000 is mandatory)
-                                             # search steps for confidence limits are perms * 1.5
+                                             # search steps for confidence limits are perms * 2.5
   
   if(perms <= 1e3)  stop("Number of permutations must be larger than 1000")
   if(is.null(data)) stop("Please supply outcome and group vector in a data.frame or tibble")
